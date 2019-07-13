@@ -157,14 +157,28 @@
         },
         methods:{
             createUser(){
-                this.form.post('api/users');
+                let self = this ; 
+                self.$Progress.start(); 
+                axios.post('api/users' , this.form ).then(function(response){
+
+                    $('#addNewUser').modal('hide');
+                    Toast.fire({
+                        type:'success' , 
+                        title:'User has been created successfully' 
+                    })
+                    self.$Progress.finish();
+                    self.loadUsers();
+                });
+               
             },
             loadUsers(){
+               this.$Progress.start();
                // inside axios we can not reach the context , so we need to hack it
                let self = this ; 
                axios.get('api/users').then(function(response){
                     let data = response.data;  
                     self.users = data;
+                    self.$Progress.finish();
                });
             }
         },
