@@ -77,7 +77,7 @@
                 </button>
               </div>
 
-                <form >
+                <form @submit.prevent="createUser">
                   <div class="modal-body">
 
                  
@@ -129,7 +129,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-sm">Create</button>
+                    <button type="submit"  class="btn btn-success btn-sm">Create</button>
                   </div>
                 </form>
             </div>
@@ -151,6 +151,11 @@
                     bio:'',
                     photo:'',
                 })
+            }
+        },
+        methods:{
+            createUser(){
+                this.form.post('api/users');
             }
         },
         mounted() {
