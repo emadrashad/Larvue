@@ -8,6 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+// importing moment js 
+import moment from 'moment'; 
+
 
 /** importing vue-router */  
 import VueRouter from 'vue-router' ;
@@ -45,6 +48,14 @@ const router = new VueRouter({
 	// this prop to clear url instead of home#/profile etc it will be just profile
 	mode:'history',
 	routes
+});
+
+Vue.filter('upText' , function(text){
+	return text.charAt(0).toUpperCase() + text.slice(1) ; 
+});
+
+Vue.filter('huDate' , function(date){
+	return moment(date).format("MMM Do YY");  
 });
  
  
