@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// for handling entring the url as we don't have we use vue js  
+Route::get('{path}', "HomeController@index")->where('path' , '([A-z\d-\/_.]+)?');

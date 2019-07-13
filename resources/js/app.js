@@ -33,6 +33,8 @@ let routes = [
 
 // we need to register our routes  
 const router = new VueRouter({
+	// this prop to clear url instead of home#/profile etc it will be just profile
+	mode:'history',
 	routes
 });
  

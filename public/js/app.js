@@ -52013,6 +52013,8 @@ var routes = [{
 }]; // we need to register our routes  
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  // this prop to clear url instead of home#/profile etc it will be just profile
+  mode: 'history',
   routes: routes
 });
 /**
