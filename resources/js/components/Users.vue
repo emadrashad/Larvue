@@ -76,13 +76,62 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success btn-sm">Create</button>
-              </div>
+
+                <form >
+                  <div class="modal-body">
+
+                 
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input v-model="form.name" type="text" name="name"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                      <has-error :form="form" field="name"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input v-model="form.email" type="text" name="email"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                      <has-error :form="form" field="email"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input v-model="form.password" type="password" name="password"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                      <has-error :form="form" field="password"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>User Type</label>
+                      <select name="form.type" v-model="form.type" :class="{ 'is-invalid': form.errors.has('type') }" class="form-control">
+                          <option value="" disabled="">Select User Type</option>
+                          <option value="admin">Admin</option>
+                          <option value="user">Standard User</option>
+                          <option value="author">Author</option>
+                      </select>
+                      <has-error :form="form" field="type"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Bio</label>
+                      <textarea name="bio"  cols="30" rows="5" v-model="form.bio" class="form-control" :class=" { 'is-invalid': form.errors.has('bio') }"></textarea>
+                      <has-error :form="form" field="bio"></has-error>
+                      
+                    </div>
+                    <!-- 
+                    <div class="form-group">
+                      <label>Photo</label>
+                      <input type="file" class="form-control" name="photo" v-model="form.photo">
+                      <has-error :form="form" field="photo"></has-error>
+                    </div> -->
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-sm">Create</button>
+                  </div>
+                </form>
             </div>
           </div>
         </div>
@@ -92,6 +141,18 @@
 
 <script>
     export default {
+        data(){
+            return {
+                form : new Form({
+                    name:'',
+                    email:'',
+                    password:'',
+                    type:'',
+                    bio:'',
+                    photo:'',
+                })
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }
