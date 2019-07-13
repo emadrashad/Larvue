@@ -34,19 +34,20 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>#</th>
                       <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
+                      <th>Date Registered</th>
+                      <th>Type</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
+                    <tr v-for="(user,index) in users.data" :key="user.id">
+                      <td>{{ index +1 }}</td>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.created_at }}</td>
+                      <td>{{ user.type }}</td>
+                      
                       <td>
                         <a href='#'>
                           <i class="fas fa-edit green"></i> 
@@ -143,6 +144,7 @@
     export default {
         data(){
             return {
+                users:{},
                 form : new Form({
                     name:'',
                     email:'',
@@ -156,10 +158,18 @@
         methods:{
             createUser(){
                 this.form.post('api/users');
+            },
+            loadUsers(){
+               // inside axios we can not reach the context , so we need to hack it
+               let self = this ; 
+               axios.get('api/users').then(function(response){
+                    let data = response.data;  
+                    self.users = data;
+               });
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+            this.loadUsers();
         }
     }
 </script>

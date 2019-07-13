@@ -1921,9 +1921,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      users: {},
       form: new Form({
         name: '',
         email: '',
@@ -1937,10 +1939,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createUser: function createUser() {
       this.form.post('api/users');
+    },
+    loadUsers: function loadUsers() {
+      // inside axios we can not reach the context , so we need to hack it
+      var self = this;
+      axios.get('api/users').then(function (response) {
+        var data = response.data;
+        self.users = data;
+      });
     }
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  created: function created() {
+    this.loadUsers();
   }
 });
 
@@ -38359,7 +38369,37 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _vm._m(0),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.users.data, function(user, index) {
+                  return _c("tr", { key: user.id }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.created_at))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.type))]),
+                    _vm._v(" "),
+                    _vm._m(3, true)
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -38382,7 +38422,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(4),
               _vm._v(" "),
               _c(
                 "form",
@@ -38617,7 +38657,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _vm._m(5)
                 ]
               )
             ])
@@ -38660,88 +38700,67 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h4", { staticClass: "card-title" }, [_vm._v("Listing Users")]),
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "card-title" }, [_vm._v("Listing Users")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "div",
+          {
+            staticClass: "input-group input-group-sm",
+            staticStyle: { width: "150px" }
+          },
+          [
+            _c("input", {
+              staticClass: "form-control float-right",
+              attrs: {
+                type: "text",
+                name: "table_search",
+                placeholder: "Search"
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
+            _c("div", { staticClass: "input-group-append" }, [
               _c(
-                "div",
-                {
-                  staticClass: "input-group input-group-sm",
-                  staticStyle: { width: "150px" }
-                },
-                [
-                  _c("input", {
-                    staticClass: "form-control float-right",
-                    attrs: {
-                      type: "text",
-                      name: "table_search",
-                      placeholder: "Search"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: { type: "submit" }
-                      },
-                      [_c("i", { staticClass: "fas fa-search" })]
-                    )
-                  ])
-                ]
+                "button",
+                { staticClass: "btn btn-default", attrs: { type: "submit" } },
+                [_c("i", { staticClass: "fas fa-search" })]
               )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body table-responsive p-0" }, [
-            _c("table", { staticClass: "table table-hover" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("ID")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("User")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Date")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Status")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Actions")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td", [_vm._v("183")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("John Doe")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("11-7-2014")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "tag tag-success" }, [
-                      _vm._v("Approved")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fas fa-edit green" })
-                    ]),
-                    _vm._v(" "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fas fa-trash red" })
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("User")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date Registered")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-edit green" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-trash red" })
       ])
     ])
   },
