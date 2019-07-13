@@ -16,7 +16,6 @@
 
 <script>
     export default {
-        name : 'Profile',
         mounted() {
             console.log('Component mounted.')
         }
