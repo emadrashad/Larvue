@@ -71,14 +71,15 @@
         <div class="modal fade" id="addNewUser" tabindex="-1" role="dialog" aria-labelledby="addNewUserLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addNewUserLabel">Add New User</h5>
+              <div class="modal-header"> 
+                <h5 class="modal-title" v-show="!editMode" >Add New User</h5>
+                <h5 class="modal-title" v-show="editMode" >Update User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-                <form @submit.prevent="createUser" >
+                <form @submit.prevent=" editMode ? updateUser() : createUser()" >
                   <div class="modal-body">
 
                  
@@ -130,7 +131,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit"  class="btn btn-success btn-sm">Create</button>
+                    <button v-show="!editMode" type="submit"  class="btn btn-primary btn-sm">Create</button>
+                    <button v-show="editMode" type="submit"  class="btn btn-success btn-sm">Update</button>
                   </div>
                 </form>
             </div>
@@ -144,6 +146,8 @@
     export default {
         data(){
             return {
+                
+                editMode:true,
                 users:{},
                 form : new Form({
                   
@@ -158,7 +162,7 @@
         },
         methods:{
             createUser(){
-                 
+                
                 let self = this ; 
                 self.$Progress.start(); 
                 
@@ -188,7 +192,13 @@
             editUser(user){
                this.form.reset();
                $('#addNewUser').modal('show') ;
+               this.editMode = true ;
                this.form.fill(user);
+               this.form.clear();
+                
+            },
+            updateUser(){
+              alert('am edit mode');
             },
             deleteUser(userid){
               Swal.fire({
@@ -234,6 +244,8 @@
               this.form.reset(); 
               // emit rest event form 
               Fire.$emit('ResetTheForm') ; 
+              this.editMode = false; 
+              this.form.clear();
             }
         },
         created() {
