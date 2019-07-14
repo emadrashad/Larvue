@@ -1940,14 +1940,39 @@ __webpack_require__.r(__webpack_exports__);
     createUser: function createUser() {
       var self = this;
       self.$Progress.start();
-      axios.post('api/users', this.form).then(function (response) {
+      this.form.post('api/users').then(function (response) {
         $('#addNewUser').modal('hide');
         Toast.fire({
           type: 'success',
           title: 'User has been created successfully'
         });
+        self.$Progress.finish(); // we will create custom event to fetch new created user 
+        // self.loadUsers();
+
+        Fire.$emit('AfterUserCreation');
+      })["catch"](function () {
         self.$Progress.finish();
-        self.loadUsers();
+      });
+    },
+    deleteUser: function deleteUser(userid) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]('api/users/' + userid).then(function (res) {
+            Swal.fire('Deleted!', 'User has been deleted.', 'success'); // custom event to update the user listing 
+
+            Fire.$emit('AfterUserDeletion');
+          })["catch"](function () {
+            Swal.fire('Erro!', 'Deletion Process Error', 'warning');
+          });
+        }
       });
     },
     loadUsers: function loadUsers() {
@@ -1962,7 +1987,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var self = this;
     this.loadUsers();
+    Fire.$on('AfterUserCreation', function () {
+      self.loadUsers();
+    });
+    Fire.$on('AfterUserDeletion', function () {
+      self.loadUsers();
+    });
   }
 });
 
@@ -58832,7 +58864,22 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
                     _vm._v(" "),
-                    _vm._m(3, true)
+                    _c("td", [
+                      _vm._m(3, true),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteUser(user.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash red" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -59196,14 +59243,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-edit green" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-trash red" })
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-edit green" })
     ])
   },
   function() {
@@ -74156,6 +74197,12 @@ window.Form = vform__WEBPACK_IMPORTED_MODULE_4__["Form"]; // Global components
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_4__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_4__["AlertError"]);
+/**
+ * Making our custom event
+ */
+
+var Fire = new Vue();
+window.Fire = Fire;
 /** Components Urls  */
 
 /** 
@@ -74492,8 +74539,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/laravel_vue/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel_vue/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\Larvue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Larvue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -52,7 +52,7 @@
                         <a href='#'>
                           <i class="fas fa-edit green"></i> 
                         </a>
-                        <a href='#'>
+                        <a href='#' @click="deleteUser(user.id)">
                           <i class="fas fa-trash red"></i>
                         </a>
                       </td>
@@ -78,7 +78,7 @@
                 </button>
               </div>
 
-                <form @submit.prevent="createUser">
+                <form @submit.prevent="createUser" >
                   <div class="modal-body">
 
                  
@@ -146,6 +146,7 @@
             return {
                 users:{},
                 form : new Form({
+                  
                     name:'',
                     email:'',
                     password:'',
@@ -157,19 +158,59 @@
         },
         methods:{
             createUser(){
+                 
                 let self = this ; 
                 self.$Progress.start(); 
-                axios.post('api/users' , this.form ).then(function(response){
+                
+                this.form.post('api/users').then(function(response){
 
                     $('#addNewUser').modal('hide');
                     Toast.fire({
                         type:'success' , 
                         title:'User has been created successfully' 
-                    })
+                    }); 
+                    
                     self.$Progress.finish();
-                    self.loadUsers();
+                   // we will create custom event to fetch new created user 
+                   // self.loadUsers();
+                   Fire.$emit('AfterUserCreation');
+                    
+                }).catch(function(){
+                  self.$Progress.finish(); 
                 });
-               
+                 
+             
+                              
+            },
+            deleteUser(userid){
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if(result.value){
+                   axios.delete('api/users/'+userid ).then(function(res){
+                      Swal.fire(
+                        'Deleted!',
+                        'User has been deleted.',
+                        'success'
+                      );
+                      // custom event to update the user listing 
+                      Fire.$emit('AfterUserDeletion') ; 
+                    }).catch(function(){
+                      Swal.fire(
+                            'Erro!',
+                            'Deletion Process Error',
+                            'warning'
+                          )
+                    })
+                }
+                
+              });
             },
             loadUsers(){
                this.$Progress.start();
@@ -183,7 +224,14 @@
             }
         },
         created() {
+            let self = this ; 
             this.loadUsers();
+            Fire.$on('AfterUserCreation' , function(){
+              self.loadUsers(); 
+            }); 
+            Fire.$on('AfterUserDeletion', function(){
+              self.loadUsers(); 
+            });
         }
     }
 </script>

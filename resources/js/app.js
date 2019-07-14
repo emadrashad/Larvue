@@ -58,6 +58,18 @@ window.Form = Form ;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+
+
+/**
+ * Making our custom event
+ */
+
+ let Fire = new Vue(); 
+ 
+ window.Fire = Fire ; 
+
+
+
 /** Components Urls  */
 
 /** 
