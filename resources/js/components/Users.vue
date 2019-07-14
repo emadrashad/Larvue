@@ -7,7 +7,7 @@
               </div> 
               <div class="col-sm-6">
                 <div class="float-sm-right">
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addNewUser"><i class="fas fa-user-plus"></i> Create new user</button>
+                    <button class="btn btn-sm btn-primary" @click="resetForm" data-toggle="modal" data-target="#addNewUser"><i class="fas fa-user-plus"></i> Create new user</button>
                 </div>
               </div>
             </div>    
@@ -49,7 +49,7 @@
                       <td>{{ user.type | upText }}</td>
                       
                       <td>
-                        <a href='#'>
+                        <a href='#' @click="editUser(user)">
                           <i class="fas fa-edit green"></i> 
                         </a>
                         <a href='#' @click="deleteUser(user.id)">
@@ -174,6 +174,9 @@
                    // we will create custom event to fetch new created user 
                    // self.loadUsers();
                    Fire.$emit('AfterUserCreation');
+                   Fire.$on('ResetTheForm' , function(){
+                     self.form.reset(); 
+                   })
                     
                 }).catch(function(){
                   self.$Progress.finish(); 
@@ -181,6 +184,11 @@
                  
              
                               
+            },
+            editUser(user){
+               this.form.reset();
+               $('#addNewUser').modal('show') ;
+               this.form.fill(user);
             },
             deleteUser(userid){
               Swal.fire({
@@ -221,6 +229,11 @@
                     self.users = data;
                     self.$Progress.finish();
                });
+            },
+            resetForm(){
+              this.form.reset(); 
+              // emit rest event form 
+              Fire.$emit('ResetTheForm') ; 
             }
         },
         created() {

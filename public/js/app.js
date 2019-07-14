@@ -1950,9 +1950,17 @@ __webpack_require__.r(__webpack_exports__);
         // self.loadUsers();
 
         Fire.$emit('AfterUserCreation');
+        Fire.$on('ResetTheForm', function () {
+          self.form.reset();
+        });
       })["catch"](function () {
         self.$Progress.finish();
       });
+    },
+    editUser: function editUser(user) {
+      this.form.reset();
+      $('#addNewUser').modal('show');
+      this.form.fill(user);
     },
     deleteUser: function deleteUser(userid) {
       Swal.fire({
@@ -1984,6 +1992,11 @@ __webpack_require__.r(__webpack_exports__);
         self.users = data;
         self.$Progress.finish();
       });
+    },
+    resetForm: function resetForm() {
+      this.form.reset(); // emit rest event form 
+
+      Fire.$emit('ResetTheForm');
     }
   },
   created: function created() {
@@ -58839,7 +58852,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c("section", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "row mb-2" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c("div", { staticClass: "float-sm-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { "data-toggle": "modal", "data-target": "#addNewUser" },
+                on: { click: _vm.resetForm }
+              },
+              [
+                _c("i", { staticClass: "fas fa-user-plus" }),
+                _vm._v(" Create new user")
+              ]
+            )
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
@@ -58865,7 +58899,18 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._m(3, true),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.editUser(user)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit green" })]
+                      ),
                       _vm._v(" "),
                       _c(
                         "a",
@@ -58911,7 +58956,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "form",
@@ -59146,7 +59191,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(4)
                 ]
               )
             ])
@@ -59161,28 +59206,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "row mb-2" }, [
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("h3", [_vm._v("Users Component")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("div", { staticClass: "float-sm-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { "data-toggle": "modal", "data-target": "#addNewUser" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-user-plus" }),
-                _vm._v(" Create new user")
-              ]
-            )
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("h3", [_vm._v("Users Component")])
     ])
   },
   function() {
@@ -59237,14 +59262,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-edit green" })
     ])
   },
   function() {
