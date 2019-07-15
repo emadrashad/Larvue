@@ -7,7 +7,7 @@
               </div> 
               <div class="col-sm-6">
                 <div class="float-sm-right">
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addNewUser"><i class="fas fa-user-plus"></i> Create new user</button>
+                    <button class="btn btn-sm btn-primary" @click="resetForm" data-toggle="modal" data-target="#addNewUser"><i class="fas fa-user-plus"></i> Create new user</button>
                 </div>
               </div>
             </div>    
@@ -49,10 +49,10 @@
                       <td>{{ user.type | upText }}</td>
                       
                       <td>
-                        <a href='#'>
+                        <a href='#' @click="editUser(user)">
                           <i class="fas fa-edit green"></i> 
                         </a>
-                        <a href='#'>
+                        <a href='#' @click="deleteUser(user.id)">
                           <i class="fas fa-trash red"></i>
                         </a>
                       </td>
@@ -71,14 +71,15 @@
         <div class="modal fade" id="addNewUser" tabindex="-1" role="dialog" aria-labelledby="addNewUserLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addNewUserLabel">Add New User</h5>
+              <div class="modal-header"> 
+                <h5 class="modal-title" v-show="!editMode" >Add New User</h5>
+                <h5 class="modal-title" v-show="editMode" >Update User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-                <form @submit.prevent="createUser">
+                <form @submit.prevent=" editMode ? updateUser() : createUser()" >
                   <div class="modal-body">
 
                  
@@ -130,7 +131,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit"  class="btn btn-success btn-sm">Create</button>
+                    <button v-show="!editMode" type="submit"  class="btn btn-primary btn-sm">Create</button>
+                    <button v-show="editMode" type="submit"  class="btn btn-success btn-sm">Update</button>
                   </div>
                 </form>
             </div>
@@ -144,8 +146,11 @@
     export default {
         data(){
             return {
+                
+                editMode:true,
                 users:{},
                 form : new Form({
+                    id:'',
                     name:'',
                     email:'',
                     password:'',
@@ -157,19 +162,88 @@
         },
         methods:{
             createUser(){
+                
                 let self = this ; 
                 self.$Progress.start(); 
-                axios.post('api/users' , this.form ).then(function(response){
+                
+                this.form.post('api/users').then(function(response){
 
                     $('#addNewUser').modal('hide');
                     Toast.fire({
                         type:'success' , 
                         title:'User has been created successfully' 
-                    })
+                    }); 
+                    
                     self.$Progress.finish();
-                    self.loadUsers();
+                   // we will create custom event to fetch new created user 
+                   // self.loadUsers();
+                   Fire.$emit('AfterUserCreation');
+                   Fire.$on('ResetTheForm' , function(){
+                     self.form.reset(); 
+                   })
+                    
+                }).catch(function(){
+                  self.$Progress.finish(); 
                 });
-               
+                 
+             
+                              
+            },
+            editUser(user){
+               this.form.reset();
+               $('#addNewUser').modal('show') ;
+               this.editMode = true ;
+               this.form.fill(user);
+               this.form.clear();
+                
+            },
+            updateUser(){
+              let self = this ; 
+              self.$Progress.start(); 
+              this.form.put('api/users/' + this.form.id)
+                       .then(function(res){
+                         $('#addNewUser').modal('hide');
+                          Toast.fire({
+                              type:'success' , 
+                              title:'User has been updated successfully' 
+                          });
+                          
+                          self.$Progress.finish();
+                          Fire.$emit('AfterUserUpdated') ; 
+                       })
+                       .catch(function(err){
+                            
+                       })
+            },
+            deleteUser(userid){
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if(result.value){
+                   axios.delete('api/users/'+userid ).then(function(res){
+                      Swal.fire(
+                        'Deleted!',
+                        'User has been deleted.',
+                        'success'
+                      );
+                      // custom event to update the user listing 
+                      Fire.$emit('AfterUserDeletion') ; 
+                    }).catch(function(){
+                      Swal.fire(
+                            'Erro!',
+                            'Deletion Process Error',
+                            'warning'
+                          )
+                    })
+                }
+                
+              });
             },
             loadUsers(){
                this.$Progress.start();
@@ -180,10 +254,28 @@
                     self.users = data;
                     self.$Progress.finish();
                });
+            },
+            resetForm(){
+              this.form.reset(); 
+              // emit rest event form 
+              Fire.$emit('ResetTheForm') ;  
+              this.editMode = false; 
+              this.form.clear();
             }
         },
         created() {
+            let self = this ; 
             this.loadUsers();
+            Fire.$on('AfterUserCreation' , function(){
+              self.loadUsers(); 
+            }); 
+            Fire.$on('AfterUserDeletion', function(){
+              self.loadUsers(); 
+            });
+
+            Fire.$on('AfterUserUpdated', function(){
+              self.loadUsers();
+            });
         }
     }
 </script>
