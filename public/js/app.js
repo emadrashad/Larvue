@@ -1930,6 +1930,7 @@ __webpack_require__.r(__webpack_exports__);
       editMode: true,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -1968,7 +1969,17 @@ __webpack_require__.r(__webpack_exports__);
       this.form.clear();
     },
     updateUser: function updateUser() {
-      alert('am edit mode');
+      var self = this;
+      self.$Progress.start();
+      this.form.put('api/users/' + this.form.id).then(function (res) {
+        $('#addNewUser').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'User has been updated successfully'
+        });
+        self.$Progress.finish();
+        Fire.$emit('AfterUserUpdated');
+      })["catch"](function (err) {});
     },
     deleteUser: function deleteUser(userid) {
       Swal.fire({
@@ -2016,6 +2027,9 @@ __webpack_require__.r(__webpack_exports__);
       self.loadUsers();
     });
     Fire.$on('AfterUserDeletion', function () {
+      self.loadUsers();
+    });
+    Fire.$on('AfterUserUpdated', function () {
       self.loadUsers();
     });
   }

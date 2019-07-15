@@ -150,7 +150,7 @@
                 editMode:true,
                 users:{},
                 form : new Form({
-                  
+                    id:'',
                     name:'',
                     email:'',
                     password:'',
@@ -198,7 +198,22 @@
                 
             },
             updateUser(){
-              alert('am edit mode');
+              let self = this ; 
+              self.$Progress.start(); 
+              this.form.put('api/users/' + this.form.id)
+                       .then(function(res){
+                         $('#addNewUser').modal('hide');
+                          Toast.fire({
+                              type:'success' , 
+                              title:'User has been updated successfully' 
+                          });
+                          
+                          self.$Progress.finish();
+                          Fire.$emit('AfterUserUpdated') ; 
+                       })
+                       .catch(function(err){
+                            
+                       })
             },
             deleteUser(userid){
               Swal.fire({
@@ -243,7 +258,7 @@
             resetForm(){
               this.form.reset(); 
               // emit rest event form 
-              Fire.$emit('ResetTheForm') ; 
+              Fire.$emit('ResetTheForm') ;  
               this.editMode = false; 
               this.form.clear();
             }
@@ -256,6 +271,10 @@
             }); 
             Fire.$on('AfterUserDeletion', function(){
               self.loadUsers(); 
+            });
+
+            Fire.$on('AfterUserUpdated', function(){
+              self.loadUsers();
             });
         }
     }
