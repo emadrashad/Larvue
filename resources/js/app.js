@@ -65,7 +65,7 @@ Vue.component(AlertError.name, AlertError)
  */
 
  let Fire = new Vue(); 
- 
+
  window.Fire = Fire ; 
 
 
@@ -81,12 +81,15 @@ Vue.component(AlertError.name, AlertError)
 const Dashboard = require('./components/Dashboard.vue').default ; 
 const Profile 	= require('./components/Profile.vue').default ; 
 const Users 	= require('./components/Users.vue').default ; 
+const Developer 	= require('./components/Developer.vue').default ;
 
+ 
 // Our routes 
 let routes = [
 	{path : '/dashboard' , component:  Dashboard }, 
 	{path : '/profile' 	 , component:  Profile }, 
-	{path : '/users' 	 , component:  Users }, 
+  {path : '/users' 	 , component:  Users }, 
+  {path : '/developer' 	 , component:  Developer }, 
 ];
 
 
@@ -104,8 +107,24 @@ Vue.filter('upText' , function(text){
 Vue.filter('huDate' , function(date){
 	return moment(date).format("MMM Do YY");  
 });
+
+// Vue js passport components  
+Vue.component(
+  'passport-clients',
+  require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+  'passport-authorized-clients',
+  require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+  'passport-personal-access-tokens',
+  require('./components/passport/PersonalAccessTokens.vue').default
+);
  
- 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
