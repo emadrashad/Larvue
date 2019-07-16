@@ -7,7 +7,7 @@
               </div> 
               <div class="col-sm-6">
                 <div class="float-sm-right">
-                    <button class="btn btn-sm btn-warning"><i class="fas fa-user-edit"></i> Edit your information</button>
+                    <button class="btn btn-sm btn-warning" @click="resetForm" data-toggle="modal" data-target="#updateUserProfile"><i class="fas fa-user-edit"></i> Edit your information</button>
                 </div>
               </div>
             </div>    
@@ -261,13 +261,148 @@
             <!-- /.nav-tabs-custom -->
           </div>
         </div>
+
+        <!-- User Profile Modal -->
+         <!-- Modal -->
+        <div class="modal fade" id="updateUserProfile" tabindex="-1" role="dialog" aria-labelledby="updateUserProfile" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header"> 
+                 
+                <h5 class="modal-title">Update User Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+                <form @submit.prevent="updateProfile()" >
+                  <div class="modal-body">
+
+                 
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input v-model="form.name" type="text" name="name"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                      <has-error :form="form" field="name"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input v-model="form.email" type="text" name="email"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                      <has-error :form="form" field="email"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input v-model="form.password" type="password" name="password"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                      <has-error :form="form" field="password"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>User Type</label>
+                      <select name="form.type" v-model="form.type" :class="{ 'is-invalid': form.errors.has('type') }" class="form-control">
+                          <option value="" disabled="">Select User Type</option>
+                          <option value="admin">Admin</option>
+                          <option value="user">Standard User</option>
+                          <option value="author">Author</option>
+                      </select>
+                      <has-error :form="form" field="type"></has-error>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Bio</label>
+                      <textarea name="bio"  cols="30" rows="5" v-model="form.bio" class="form-control" :class=" { 'is-invalid': form.errors.has('bio') }"></textarea>
+                      <has-error :form="form" field="bio"></has-error>
+                      
+                    </div>
+                    <!-- 
+                    <div class="form-group">
+                      <label>Photo</label>
+                      <input type="file" class="form-control" name="photo" v-model="form.photo">
+                      <has-error :form="form" field="photo"></has-error>
+                    </div> -->
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    
+                    <button type="submit"  class="btn btn-success btn-sm">Update</button>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
+        data(){
+            return {
+                user:{}, 
+                form : new Form({
+                    id:'',
+                    name:'',
+                    email:'',
+                    password:'',
+                    type:'',
+                    bio:'',
+                    photo:'',
+                })
+            }
+        },
+        created() {
+            let self = this ; 
+            axios.get('api/profile').then(function(res){
+                    
+                    self.form.fill(res.data); 
+                    self.user = res.data ; 
+            }) 
+
+            Fire.$on('AfterProfileUpdate' , function(){
+                axios.get('api/profile').then(function(res){        
+                        self.form.fill(res.data); 
+                        self.user = res.data ; 
+                }) 
+            })
            
-        }
+        },
+        methods: {
+            updateProfile(){
+                
+              let self = this ; 
+             
+              self.$Progress.start(); 
+              this.form.put('api/users/' + this.form.id)
+                       .then(function(res){
+                         $('#updateUserProfile').modal('hide');
+                          Toast.fire({
+                              type:'success' , 
+                              title:'Profile Information has been updated successfully' 
+                          });
+                          
+                          self.$Progress.finish();
+                          Fire.$emit('AfterProfileUpdate'); 
+                       })
+                       .catch(function(err){
+                             self.$Progress.finish();
+                       })
+             
+            },
+            resetForm(){
+                let self = this ; 
+                self.form.clear();
+                self.form.reset();
+                self.form.fill(this.user) ; 
+                // axios.get('api/profile').then(function(res){
+                    
+                //     self.form.fill(res.data); 
+                // })
+                 
+            }
+        },
     }
 </script>
