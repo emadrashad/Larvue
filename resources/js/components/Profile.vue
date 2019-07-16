@@ -17,11 +17,11 @@
                  <div class="card card-widget widget-user">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-info-active">
-                <h3 class="widget-user-username">Alexander Pierce</h3>
-                <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+                <h3 class="widget-user-username" v-html="user.name"></h3> 
+                <h5 class="widget-user-desc" v-html="user.bio"></h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="#" alt="User Avatar">
+                <img class="img-circle elevation-2" :src=" user.photo  ?  '/img/profile/' + user.photo : '/img/profile.png'" alt="User Avatar">
               </div>
               <div class="card-footer">
                 <div class="row">
@@ -317,12 +317,12 @@
                       <has-error :form="form" field="bio"></has-error>
                       
                     </div>
-                    <!-- 
+                    
                     <div class="form-group">
                       <label>Photo</label>
-                      <input type="file" class="form-control" name="photo" v-model="form.photo">
-                      <has-error :form="form" field="photo"></has-error>
-                    </div> -->
+                      <input type="file" class="form-control" name="photo" @change="photoHandler">
+                      <!-- <has-error :form="form" field="photo"></has-error> -->
+                    </div>
 
                   </div>
                   <div class="modal-footer">
@@ -378,6 +378,7 @@
               self.$Progress.start(); 
               this.form.put('api/users/' + this.form.id)
                        .then(function(res){
+                        
                          $('#updateUserProfile').modal('hide');
                           Toast.fire({
                               type:'success' , 
@@ -401,7 +402,18 @@
                     
                 //     self.form.fill(res.data); 
                 // })
-                 
+                self.form.photo = null ;
+            },
+            photoHandler(e){
+                let self = this; 
+                let file = e.target.files[0] ; 
+                let reader = new FileReader(); 
+                reader.onloadend = function() {
+                     
+                    self.form.photo = reader.result ;  
+                    
+                }
+                reader.readAsDataURL(file) ; 
             }
         },
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User ; 
+use Image ; 
 class UserController extends Controller
 {
 
@@ -77,6 +78,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+      
         $user = User::findOrFail($id) ; 
         
         // adding sometimes validation rule to validate password if it present -_- 
@@ -92,6 +95,19 @@ class UserController extends Controller
         $user->password = isset($request->password) ? crypt($request->password , '') : $user->password ;
         $user->type = $request->type ;
         $user->bio = $request->bio ;
+
+        if($request->photo){
+            //  means there is an image attached 
+            $image = $request->photo;
+            $imageInfo = explode(";base64,", $image);
+            $imgExt = str_replace('data:image/', '', $imageInfo[0]);      
+            $image = str_replace(' ', '+', $imageInfo[1]);
+            $imageName = "profile_".time()."_". rand(1,100000) .".".$imgExt;
+            
+            Image::make($image)->save(\public_path('/img/profile/') . $imageName) ;
+            
+            $user->photo = $imageName ; 
+        }
 
         $user->save(); 
         
