@@ -71,7 +71,7 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * Function is used for both update user info and update profile info 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
