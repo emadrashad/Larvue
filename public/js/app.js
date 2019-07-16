@@ -1790,10 +1790,258 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -60420,17 +60668,461 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
+      _c("section", { staticClass: "content-header" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h3", [_vm._v("Your Profile")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("div", { staticClass: "float-sm-right" }, [
+              _c("button", { staticClass: "btn btn-sm btn-warning" }, [
+                _c("i", { staticClass: "fas fa-user-edit" }),
+                _vm._v(" Edit your information")
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row " }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card card-widget widget-user" }, [
+            _c("div", { staticClass: "widget-user-header bg-info-active" }, [
+              _c("h3", { staticClass: "widget-user-username" }, [
+                _vm._v("Alexander Pierce")
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "widget-user-desc" }, [
+                _vm._v("Founder & CEO")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "widget-user-image" }, [
+              _c("img", {
+                staticClass: "img-circle elevation-2",
+                attrs: { src: "#", alt: "User Avatar" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-4 border-right" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v("3,200")
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("SALES")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-4 border-right" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v("13,000")
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("FOLLOWERS")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-4" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v("35")
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("PRODUCTS")
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "card card-primary" }, [
             _c("div", { staticClass: "card-header" }, [
-              _vm._v("Profile Component")
+              _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+              _c("strong", [
+                _c("i", { staticClass: "fas fa-book mr-1" }),
+                _vm._v(" Education")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted" }, [
+                _vm._v(
+                  "\n              B.S. in Computer Science from the University of Tennessee at Knoxville\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("strong", [
+                _c("i", { staticClass: "fas fa-map-marker-alt mr-1" }),
+                _vm._v(" Location")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted" }, [
+                _vm._v("Malibu, California")
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("strong", [
+                _c("i", { staticClass: "fas fa-pencil-alt mr-1" }),
+                _vm._v(" Skills")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted" }, [
+                _c("span", { staticClass: "tag tag-danger" }, [
+                  _vm._v("UI Design")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "tag tag-success" }, [
+                  _vm._v("Coding")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "tag tag-info" }, [
+                  _vm._v("Javascript")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
+                _vm._v(" "),
+                _c("span", { staticClass: "tag tag-primary" }, [
+                  _vm._v("Node.js")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("strong", [
+                _c("i", { staticClass: "far fa-file-alt mr-1" }),
+                _vm._v(" Notes")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted" }, [
+                _vm._v(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-9" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header p-2" }, [
+              _c("ul", { staticClass: "nav nav-pills" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link active",
+                      attrs: { href: "#activity", "data-toggle": "tab" }
+                    },
+                    [_vm._v("Activity")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { href: "#timeline", "data-toggle": "tab" }
+                    },
+                    [_vm._v("Timeline")]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "tab-content" }, [
+                _c(
+                  "div",
+                  { staticClass: "tab-pane active", attrs: { id: "activity" } },
+                  [
+                    _c("div", { staticClass: "post" }, [
+                      _c("div", { staticClass: "user-block" }, [
+                        _c("img", {
+                          staticClass: "img-circle img-bordered-sm",
+                          attrs: { src: "#", alt: "user image" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "username" }, [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Jonathan Burke Jr.")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right btn-tool",
+                              attrs: { href: "#" }
+                            },
+                            [_c("i", { staticClass: "fas fa-times" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "description" }, [
+                          _vm._v("Shared publicly - 7:30 PM today")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                    Lorem ipsum represents a long-held tradition for designers,\n                    typographers and the like. Some people hate it and argue for\n                    its demise, but others ignore the hate as they create awesome\n                    tools to help create filler text for everyone from bacon lovers\n                    to Charlie Sheen fans.\n                  "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "link-black text-sm mr-2",
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-share mr-1" }),
+                            _vm._v(" Share")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "link-black text-sm",
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _c("i", { staticClass: "far fa-thumbs-up mr-1" }),
+                            _vm._v(" Like")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "float-right" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "link-black text-sm",
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("i", { staticClass: "far fa-comments mr-1" }),
+                              _vm._v(" Comments (5)\n                      ")
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control form-control-sm",
+                        attrs: { type: "text", placeholder: "Type a comment" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "post clearfix" }, [
+                      _c("div", { staticClass: "user-block" }, [
+                        _c("img", {
+                          staticClass: "img-circle img-bordered-sm",
+                          attrs: { src: "", alt: "User Image" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "username" }, [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Sarah Ross")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right btn-tool",
+                              attrs: { href: "#" }
+                            },
+                            [_c("i", { staticClass: "fas fa-times" })]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "description" }, [
+                          _vm._v("Sent you a message - 3 days ago")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                    Lorem ipsum represents a long-held tradition for designers,\n                    typographers and the like. Some people hate it and argue for\n                    its demise, but others ignore the hate as they create awesome\n                    tools to help create filler text for everyone from bacon lovers\n                    to Charlie Sheen fans.\n                  "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("form", { staticClass: "form-horizontal" }, [
+                        _c(
+                          "div",
+                          { staticClass: "input-group input-group-sm mb-0" },
+                          [
+                            _c("input", {
+                              staticClass: "form-control form-control-sm",
+                              attrs: { placeholder: "Response" }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "input-group-append" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  attrs: { type: "submit" }
+                                },
+                                [_vm._v("Send")]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane", attrs: { id: "timeline" } },
+                  [
+                    _c("ul", { staticClass: "timeline timeline-inverse" }, [
+                      _c("li", { staticClass: "time-label" }, [
+                        _c("span", { staticClass: "bg-danger" }, [
+                          _vm._v(
+                            "\n                      10 Feb. 2014\n                    "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("i", { staticClass: "fas fa-envelope bg-primary" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "timeline-item" }, [
+                          _c("span", { staticClass: "time" }, [
+                            _c("i", { staticClass: "far fa-clock" }),
+                            _vm._v(" 12:05")
+                          ]),
+                          _vm._v(" "),
+                          _c("h3", { staticClass: "timeline-header" }, [
+                            _c("a", { attrs: { href: "#" } }, [
+                              _vm._v("Support Team")
+                            ]),
+                            _vm._v(" sent you an email")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-body" }, [
+                            _vm._v(
+                              "\n                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,\n                        weebly ning heekya handango imeem plugg dopplr jibjab, movity\n                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle\n                        quora plaxo ideeli hulu weebly balihoo...\n                      "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-footer" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-primary btn-sm",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Read more")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-danger btn-sm",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Delete")]
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("i", { staticClass: "fas fa-user bg-info" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "timeline-item" }, [
+                          _c("span", { staticClass: "time" }, [
+                            _c("i", { staticClass: "far fa-clock" }),
+                            _vm._v(" 5 mins ago")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h3",
+                            { staticClass: "timeline-header border-0" },
+                            [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _vm._v("Sarah Young")
+                              ]),
+                              _vm._v(
+                                " accepted your friend request\n                      "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("i", { staticClass: "fas fa-comments bg-warning" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "timeline-item" }, [
+                          _c("span", { staticClass: "time" }, [
+                            _c("i", { staticClass: "far fa-clock" }),
+                            _vm._v(" 27 mins ago")
+                          ]),
+                          _vm._v(" "),
+                          _c("h3", { staticClass: "timeline-header" }, [
+                            _c("a", { attrs: { href: "#" } }, [
+                              _vm._v("Jay White")
+                            ]),
+                            _vm._v(" commented on your post")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-body" }, [
+                            _vm._v(
+                              "\n                        Take me to your leader!\n                        Switzerland is small and neutral!\n                        We are more like Germany, ambitious and misunderstood!\n                      "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "timeline-footer" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-warning btn-flat btn-sm",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("View comment")]
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "time-label" }, [
+                        _c("span", { staticClass: "bg-success" }, [
+                          _vm._v(
+                            "\n                      3 Jan. 2014\n                    "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("i", { staticClass: "far fa-clock bg-gray" })
+                      ])
+                    ])
+                  ]
+                )
+              ])
             ])
           ])
         ])
