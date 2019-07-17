@@ -13,6 +13,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'content'        =>     $faker->realText(500),
         'created_at'     =>     $faker->date(),
         'publish_status' =>     'drafted',
+        'cover_pic'      =>     $faker->imageUrl()
         
         
     ];

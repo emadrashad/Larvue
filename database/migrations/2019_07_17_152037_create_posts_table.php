@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('content') ; 
             $table->text('hastags')->nullable() ; 
             $table->enum('publish_status', ['published' , 'drafted'])->default('drafted'); 
+            $table->string('cover_pic')->nullable();
             $table->timestamps();
         });
     }

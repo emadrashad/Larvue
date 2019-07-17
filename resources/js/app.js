@@ -14,6 +14,9 @@ window.Vue = require('vue');
 // importing moment js 
 import moment from 'moment'; 
 
+import Pagination from 'laravel-vue-pagination';
+Vue.component('pagination' , Pagination) ; 
+
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 

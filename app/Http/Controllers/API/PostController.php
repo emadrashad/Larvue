@@ -4,9 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api') ; 
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts  = Post::latest()->with('user')->paginate(4) ; 
+        return $posts ; 
     }
 
     /**

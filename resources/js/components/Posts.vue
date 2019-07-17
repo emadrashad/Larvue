@@ -43,27 +43,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr v-for="(user,index) in users.data" :key="user.id">
+                    <tr v-for="(post,index) in posts.data" :key="post.id">
                       <td>{{ index +1 }}</td>
-                      <td>{{ user.name }}</td>
-                      <td>{{ user.created_at | huDate}}</td>
-                      <td>{{ user.type | upText }}</td>
+                      <td>
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" :src="post.cover_pic" alt="user image">
+                          <span class="username">
+                            {{ post.title }} 
+                             
+                          </span>
+                          <!-- <span class="description">Shared publicly - 7:30 PM today</span> -->
+                        </div>
+                      </td>
+                      <td>{{ post.user.name }}</td>
+                      <td>{{ post.created_at | huDate}}</td>
+                      <td><span class="badge" :class="post.publish_status == 'drafted' ? ' bg-info' : ' bg-success'">{{ post.publish_status | upText }}</span></td>
                       
                       <td>
-                        <a href='#' @click="editUser(user)">
+                        <a href='#'>
                           <i class="fas fa-edit green"></i> 
                         </a>
-                        <a href='#' @click="deleteUser(user.id)">
+                        <a href='#'>
                           <i class="fas fa-trash red"></i>
                         </a>
                       </td>
-                    </tr> -->
-                    
+                    </tr> 
                   </tbody>
+                 
                 </table>
+                 
               </div>
+              
               <!-- /.card-body -->
             </div>
+            <div class="col-md-12">
+                   <pagination :size="small" :align="align" :data="posts" @pagination-change-page="getResults">
+                      <span slot="prev-nav">Previous</span>  
+	                    <span slot="next-nav">Next</span>
+                    </pagination>
+                  </div>
             <!-- /.card -->
           </div>
         </div>
@@ -72,8 +90,42 @@
 
 <script>
     export default {
+        data() {
+          return {
+            posts : {},
+            small:'small',
+            align:'center'
+          }
+        },
         mounted() {
             console.log('am mounted') ; 
+        },
+        created(){
+          let self = this ; 
+          // i want to send get request to fetch posts first  
+          axios.get('api/posts')
+               .then(function(res){
+                  self.$Progress.start();
+                  self.posts = res.data ; 
+                  self.$Progress.finish();
+               })
+               .catch(function(err){
+                  
+               })
+        },
+        methods:{
+          getResults(page = 1){
+            let self = this ; 
+            axios.get('api/posts?page=' + page)
+                  .then(function(res){
+                      self.$Progress.start();
+                      self.posts = res.data ; 
+                      self.$Progress.finish();
+                  })
+                  .catch(function(err){
+                    console.log(err) ; 
+                  })
+          }
         }
     }
 </script>
