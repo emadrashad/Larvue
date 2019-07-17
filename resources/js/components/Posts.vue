@@ -77,11 +77,11 @@
               <!-- /.card-body -->
             </div>
             <div class="col-md-12">
-                   <pagination :size="small" :align="align" :data="posts" @pagination-change-page="getResults">
-                      <span slot="prev-nav">Previous</span>  
-	                    <span slot="next-nav">Next</span>
-                    </pagination>
-                  </div>
+              <pagination :size="small" :align="align" :data="posts" @pagination-change-page="getResults">
+                <span slot="prev-nav">Previous</span>  
+                <span slot="next-nav">Next</span>
+              </pagination>
+            </div>
             <!-- /.card -->
           </div>
         </div>
