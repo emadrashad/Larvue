@@ -82,6 +82,7 @@ const Dashboard = require('./components/Dashboard.vue').default ;
 const Profile 	= require('./components/Profile.vue').default ; 
 const Users 	= require('./components/Users.vue').default ; 
 const Developer 	= require('./components/Developer.vue').default ;
+const Posts 	= require('./components/Posts.vue').default ;
 
  
 // Our routes 
@@ -90,6 +91,7 @@ let routes = [
 	{path : '/profile' 	 , component:  Profile }, 
   {path : '/users' 	 , component:  Users }, 
   {path : '/developer' 	 , component:  Developer }, 
+  {path : '/posts' 	 , component:  Posts },
 ];
 
 
